@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html class="h-full bg-white dark:bg-gray-900 transition-colors duration-300" data-controller="theme">
+  <head>
+    <title><%= content_for(:title) || "Dragonball App" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <script>
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    </script>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="h-full text-gray-800 dark:text-gray-200">
+    <%= render "layouts/navigation" %>
+    
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
+      <%= yield %>
+    </main>
+
+    <script>
+      (function() {
+        let isNavigating = false;
+
+        document.addEventListener("turbo:click", (event) => {
+          if (isNavigating) {
+            event.preventDefault();
+            return;
+          }
+          isNavigating = true;
+        });
+
+        document.addEventListener("turbo:load", () => {
+          isNavigating = false;
+        });
+        
+        document.addEventListener("turbo:fetch-request-error", () => {
+          isNavigating = false;
+        });
+      })();
+    </script>
+  </body>
+</html>

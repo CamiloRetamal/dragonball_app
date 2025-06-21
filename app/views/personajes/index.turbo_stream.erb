@@ -1,0 +1,28 @@
+<% if params[:search].present? %>
+  <%= turbo_stream.replace "personajes" do %>
+    <%= render partial: "personaje", collection: @personajes %>
+  <% end %>
+  <%= turbo_stream.replace "cantidad-visible" do %>
+    <%= @personajes_cargados %>
+  <% end %>
+  <%= turbo_stream.replace "total-personajes" do %>
+    <%= @total_personajes %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.append "personajes" do %>
+    <%= render partial: "personaje", collection: @personajes %>
+  <% end %>
+  <%= turbo_stream.update "cantidad-visible" do %>
+    <%= @personajes_cargados %>
+  <% end %>
+<% end %>
+
+<% if @next_page && params[:search].blank? %>
+  <%= turbo_stream.replace "load_more" do %>
+    <%= turbo_frame_tag "load_more", src: personajes_path(page: @next_page, limit: @limit, format: :turbo_stream), loading: :lazy do %>
+      <div class="p-4 text-center text-gray-500">Cargando más...</div>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.remove "load_more" %>
+<% end %>

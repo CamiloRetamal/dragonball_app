@@ -1,0 +1,89 @@
+<%= turbo_frame_tag "personajes_container" do %>
+  <div class="mb-4">
+    <%= link_to personajes_path(limit: @limit), 
+        class: "text-orange-600 hover:text-orange-700 flex items-center gap-2",
+        data: { turbo: false } do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+      </svg>
+      Volver al listado
+    <% end %>
+  </div>
+
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+    <div style="background-color: <%= @personaje["dominant_color"] %>;" class="p-8">
+      <img src="<%= @personaje["image"] %>" 
+           alt="<%= @personaje["name"] %>" 
+           class="w-full max-w-md mx-auto h-96 object-contain">
+    </div>
+    
+    <div class="p-6 bg-white dark:bg-gray-800 rounded-b-xl">
+      <h1 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white"><%= @personaje["name"] %></h1>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h2 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Información General</h2>
+          <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+            <li><strong>Raza:</strong> <%= @personaje["race"] %></li>
+            <li><strong>Género:</strong> <%= @personaje["gender"] %></li>
+            <li><strong>Ki:</strong> <%= @personaje["ki"] %></li>
+            <li><strong>Max Ki:</strong> <%= @personaje["maxKi"] %></li>
+            <li><strong>Afiliación:</strong> <%= @personaje["affiliation"] %></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h2 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Características</h2>
+          <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+            <li>
+              <strong>Planeta de origen:</strong> 
+              <% if @personaje["originPlanet"].is_a?(Hash) %>
+                <%= @personaje["originPlanet"]["name"] %>
+                <% if @personaje["originPlanet"]["isDestroyed"] %>
+                  <span class="text-red-600 text-sm">(Destruido)</span>
+                <% end %>
+              <% else %>
+                <%= @personaje["originPlanet"] %>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <h2 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Descripción</h2>
+        <p class="text-gray-700 dark:text-gray-300"><%= @personaje["description"] %></p>
+      </div>
+
+      <% if @personaje["originPlanet"].is_a?(Hash) && @personaje["originPlanet"]["description"].present? %>
+        <div class="mt-6">
+          <h2 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Sobre el planeta <%= @personaje["originPlanet"]["name"] %></h2>
+          <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg">
+            <% if @personaje["originPlanet"]["image"].present? %>
+              <img src="<%= @personaje["originPlanet"]["image"] %>" 
+                   alt="<%= @personaje["originPlanet"]["name"] %>" 
+                   class="w-full max-h-48 object-cover rounded-lg mb-4">
+            <% end %>
+            <p class="text-gray-700 dark:text-gray-300"><%= @personaje["originPlanet"]["description"] %></p>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @personaje["transformations"].present? %>
+        <div class="mt-6">
+          <h2 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Transformaciones</h2>
+          <ul class="space-y-4">
+            <% @personaje["transformations"].each do |transformation| %>
+              <li class="text-gray-700 dark:text-gray-300">
+                <strong><%= transformation["name"] %></strong>
+                <% if transformation["image"].present? %>
+                  <img src="<%= transformation["image"] %>" alt="<%= transformation["name"] %>" class="w-32 h-32 object-contain mt-2">
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
