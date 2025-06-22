@@ -1,0 +1,12 @@
+<%= link_to character_path(character["id"]), 
+    class: "block",
+    data: { turbo: false } do %>
+  <div style="background-color: <%= character["dominant_color"] %>;" class="rounded-xl p-4 shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300">
+    <img src="<%= character["image"] %>" alt="<%= character["name"] %>" 
+         class="w-full h-80 object-contain rounded-md img-zoom" loading="lazy">
+    <h2 class="mt-2 text-xl font-semibold text-center"><%= character["name"] %></h2>
+    <p class="text-sm text-center <%= character["fondo_oscuro"] ? 'text-gray-200' : 'text-gray-600' %>">
+      Raza: <%= character["race"] %>
+    </p>
+  </div>
+<% end %>

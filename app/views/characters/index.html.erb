@@ -1,0 +1,52 @@
+<%= turbo_frame_tag "characters_container" do %>
+  <%= form_with url: characters_path, method: :get, local: true do |form| %>
+    <div class="mb-8 flex gap-2">
+      <%= form.text_field :search, 
+          placeholder: "Buscar personajes", 
+          class: "border p-2 px-5 rounded-full border-orange-500 w-full bg-transparent dark:text-white dark:placeholder-gray-400 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400", 
+          value: params[:search]
+      %>
+      <%= form.hidden_field :limit, value: params[:limit] %>
+      <%= form.hidden_field :page, value: 1 %>
+      <%= form.submit "Buscar", class: "cursor-pointer bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-full shadow-lg border-4 border-orange-500 transition-all duration-300 flex items-center " %>
+    </div>
+  <% end %>
+</div>
+
+  <div data-controller="scroll" class="mb-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6" id="characters">
+      <%= render partial: "character", collection: @characters %>
+    </div>
+    <% if @next_page && params[:search].blank? %>
+      <%= turbo_frame_tag "load_more", 
+          src: characters_path(page: @next_page, limit: @limit, format: :turbo_stream), 
+          loading: :lazy do %>
+        <div class="p-4 text-center text-gray-500">Cargando más...</div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <h2 class="mb-4 text-xl font-semibold mt-8">
+    Mostrando <span id="cantidad-visible"><%= @loaded_characters %></span> de <span id="total-characters"><%= @total_characters %></span> personajes
+  </h2>
+<% end %>
+
+<% unless params[:limit].present? %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const grid = document.getElementById("characters");
+      if (!grid) return;
+      requestAnimationFrame(() => {
+        const styles = window.getComputedStyle(grid);
+        const columns = styles.getPropertyValue("grid-template-columns").split(" ").length;
+        const rows = 2;
+        const limit = Math.max(columns * rows, 1);
+        const url = new URL(window.location.href);
+        if (!url.searchParams.has("limit")) {
+          url.searchParams.set("limit", limit);
+          window.location.href = url.toString();
+        }
+      });
+    });
+  </script>
+<% end %>

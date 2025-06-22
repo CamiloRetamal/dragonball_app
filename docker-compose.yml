@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  dragonball_db:
+    container_name: dragonball_postgres
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dragonball
+    ports:
+      - "5432:5432"
+    volumes:
+      - dragonball_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  dragonball_postgres_data:
+    name: dragonball_postgres_data
+    driver: local
