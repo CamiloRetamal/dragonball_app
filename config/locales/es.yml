@@ -18,17 +18,19 @@ es:
             password_confirmation:
               confirmation: "Las contraseñas no coinciden"
             password:
-              blank: "La contraseña no puede estar en blanco"
-              too_short: "La contraseña debe tener al menos %{count} caracteres"
+              blank: "Por favor ingresa una contraseña"
+              too_short: "La contraseña debe tener al menos 8 caracteres"
+              invalid: "La contraseña debe contener al menos una mayúscula, una minúscula y un número"
             email:
-              blank: "El email no puede estar en blanco"
-              invalid: "El formato del email no es válido"
-              taken: "Este email ya está registrado"
+              blank: "Por favor ingresa un email"
+              taken: "No se pudo completar el registro con los datos proporcionados"
+              invalid: "El formato del email debe ser tu@email.com"
+              too_long: "El email es demasiado largo"
             name:
-              blank: "El nombre no puede estar en blanco"
-              too_short: "El nombre debe tener al menos %{count} caracteres"
-              too_long: "El nombre no puede tener más de %{count} caracteres"
-              taken: "Este nombre ya está registrado"
+              blank: "Por favor ingresa un nombre"
+              taken: "No se pudo completar el registro con los datos proporcionados"
+              too_short: "El nombre es demasiado corto"
+              too_long: "El nombre es demasiado largo"
               invalid: "El nombre solo puede contener letras, números, espacios y guiones bajos"
   errors:
     messages:
@@ -48,3 +50,6 @@ es:
       other_than: "debe ser distinto de %{count}"
       odd: "debe ser impar"
       even: "debe ser par"
+      not_saved:
+        one: "No se pudo completar el registro"
+        other: "No se pudo completar el registro"

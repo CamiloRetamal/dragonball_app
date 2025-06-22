@@ -12,7 +12,7 @@ class RegistrationsController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      redirect_to characters_path, notice: "¡Bienvenido al mundo de Dragon Ball Z, #{@user.name}! Tu poder de pelea inicial ha sido registrado."
+      redirect_to characters_path
     else
       render :new, status: :unprocessable_entity
     end

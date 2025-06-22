@@ -7,11 +7,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:email])
+    user = User.find_by(email: params[:email]&.downcase)
+
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to characters_path, notice: "¡Tu poder de pelea ha sido verificado, #{user.name}!"
+      redirect_to characters_path
     else
+      @email = params[:email]
+      flash.now[:alert] = "Credenciales inválidas"
       render :new, status: :unprocessable_entity
     end
   end
