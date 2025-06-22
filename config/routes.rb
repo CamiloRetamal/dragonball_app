@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
-  root "personajes#index"
+  # Ruta principal
+  root "sessions#new"
 
-  resources :personajes, only: [ :index, :show ]
+  # Rutas de autenticación
+  get "signup", to: "registrations#new"
+  post "signup", to: "registrations#create"
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
+
+  # Rutas protegidas
+  resources :characters, only: [ :index, :show ]
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html class="h-full bg-white dark:bg-gray-900 transition-colors duration-300" data-controller="theme">
+<head>
+  <title>Dragon Ball Z - <%= yield(:page_title) || "Análisis de Poder" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
+
+  <%= yield :head %>
+</head>
+
+<body class="h-full auth-background">
+  <%= render 'shared/theme_toggle' %>
+  <div class="min-h-screen flex flex-col justify-between">
+    <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-lg w-full max-w-md p-8">
+        <%= yield %>
+      </div>
+    </main>
+
+    <footer class="bg-black/50 text-white py-4 text-center text-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p>Dragon Ball Z App &copy;<%= Time.current.year %> | Desarrollado por Camilo Retamal</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html> 
