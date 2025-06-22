@@ -29,7 +29,7 @@ jobs:
         with:
           bundler-cache: true
       - name: Run brakeman
-        run: bundle exec brakeman
+        run: bundle exec brakeman -c config/brakeman.yml
 
   scan_js:
     runs-on: ubuntu-latest

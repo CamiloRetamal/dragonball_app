@@ -1,0 +1,6 @@
+---
+:skip_checks:
+  - ValidationRegex
+:encoding: utf-8
+:exit_on_warn: false
+:exit_on_error: false
