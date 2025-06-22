@@ -6,7 +6,7 @@
     "@hotwired/turbo-rails": "^8.0.0"
   },
   "scripts": {
-    "lint": "eslint app/javascript/**/*.js",
+    "lint": "eslint app/javascript/**/*.js --fix",
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets"
   },
   "devDependencies": {
