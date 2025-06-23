@@ -23,7 +23,9 @@
         </div>
         <div class="hidden md:block md:ml-6">
           <div class="flex space-x-4">
-            <%= link_to "Personajes", characters_path, class: "text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 px-3 py-2 rounded-md text-sm font-medium transition" %>
+            <%= link_to root_path, class: "text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 px-3 py-2 rounded-md text-sm font-medium transition", data: { turbo: false } do %>
+              Personajes
+            <% end %>
             <%= link_to "Favoritos", "#", class: "text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 px-3 py-2 rounded-md text-sm font-medium transition" %>
           </div>
         </div>
@@ -63,7 +65,9 @@
           <%= current_user.name %>
         </div>
       <% end %>
-      <%= link_to "Personajes", characters_path, class: "text-gray-600 dark:text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" %>
+      <%= link_to root_path, class: "text-gray-600 dark:text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium", data: { turbo: false } do %>
+        Personajes
+      <% end %>
       <%= link_to "Favoritos", "#", class: "text-gray-600 hover:bg-gray-700 dark:text-white hover:text-white block px-3 py-2 rounded-md text-base font-medium" %>
       <% if user_signed_in? %>
         <%= button_to "Cerrar sesión", logout_path, 
