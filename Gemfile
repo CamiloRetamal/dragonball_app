@@ -51,6 +51,24 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+   # Testing framework for Rails
+   # Gema principal de testing
+   gem "rspec-rails"
+   # Gema para crear datos de prueba
+   gem "factory_bot_rails"
+   # Gema para generar datos falsos
+   gem "faker"
+   # Gema para validaciones más legibles
+   gem "shoulda-matchers"
+   # Gema para limpiar la base de datos entre pruebas
+   gem "database_cleaner-active_record"
+
+   # LSP y herramientas de desarrollo
+   gem "ruby-lsp", "~> 0.24.2"
+   gem "ruby-lsp-rails", "~> 0.4.6"
+   gem "rbs", "~> 3.9.4"
+   gem "sorbet-runtime", "~> 0.5.12196"
 end
 
 group :development do
