@@ -31,7 +31,7 @@
   <% end %>
 
   <div>
-    <%= f.label :email, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+    <%= f.label :email, 'Correo electrónico', class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
     <div class="mt-1">
       <%= f.email_field :email, 
           class: "appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 dark:bg-gray-700 dark:text-white sm:text-sm",
@@ -42,11 +42,11 @@
   </div>
 
   <div>
-    <%= f.label :password, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+    <%= f.label :password, 'Contraseña', class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
     <div class="mt-1 relative" data-controller="password-toggle">
       <%= f.password_field :password,
           class: "appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 dark:bg-gray-700 dark:text-white sm:text-sm pr-10",
-          placeholder: "••••••••",
+          placeholder: "",
           required: true,
           data: { password_toggle_target: "input" } %>
       <button type="button" 
